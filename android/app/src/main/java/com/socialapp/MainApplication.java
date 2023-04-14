@@ -13,7 +13,11 @@ import java.util.List;
 // react native vector icon
 // import com.oblador.vectoricons.VectorIconsPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+// react native firebase
+import androidx.multidex.MultiDexApplication;
+
+// public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new DefaultReactNativeHost(this) {

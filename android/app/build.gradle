@@ -100,6 +100,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // react native firebase
+        multiDexEnabled true
     }
 
     splits {
@@ -168,6 +171,9 @@ dependencies {
 
     // react native vector icon
     implementation project(':react-native-vector-icons')
+
+    // react native firebase 
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
@@ -177,3 +183,6 @@ project.ext.vectoricons = [
     iconFontNames: [ 'Ionicons.ttf' ] // Name of the font files you want to copy
 ]
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+// react native firebase
+apply plugin: 'com.google.gms.google-services' // <- Add this line
