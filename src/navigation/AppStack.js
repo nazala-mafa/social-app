@@ -3,18 +3,55 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../screens/HomeScreen';
 import MessageScreen from '../screens/MessageScreen';
-import ProfileScreen from '../screens/ProfileSreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import {Pressable, View} from 'react-native';
+import AddPostScreen from '../screens/AddPostScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const FeedStack = () => {
+const FeedStack = ({navigation}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Feed"
+        name="RN Social"
         component={HomeScreen}
-        options={{headerShown: false}}
+        options={{
+          headerTitleAlign: 'center',
+          headerTitleStyle: {color: '#2e64e5', fontSize: 18},
+          headerStyle: {shadowColor: '#fff', elevation: 0},
+          headerRight: () => (
+            <View style={{marginRight: 10}}>
+              <Pressable onPress={() => navigation.navigate('AddPost')}>
+                <Icon name="add-outline" size={22} color="#2e64e5" />
+              </Pressable>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AddPost"
+        component={AddPostScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#2e64e515',
+            shadowColor: '#2e64e515',
+            elevation: 0,
+          },
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name="HomeProfile"
+        component={ProfileScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#fff',
+            shadowColor: '#fff',
+            elevation: 0,
+          },
+          title: '',
+        }}
       />
     </Stack.Navigator>
   );
