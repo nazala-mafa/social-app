@@ -9,9 +9,11 @@ export default function FormButton({
   titleStyle,
 }) {
   return (
-    <Pressable onPress={onPress} style={[styles.button, buttonStyle]}>
-      {iconType && <Icon name={iconType} style={[styles.icon, titleStyle]} />}
-      <Text style={[styles.title, titleStyle]}>{title}</Text>
+    <Pressable onPress={onPress} style={[styles.button, buttonStyle || null]}>
+      {iconType && (
+        <Icon name={iconType} style={[styles.icon, titleStyle || null]} />
+      )}
+      <Text style={[styles.title, titleStyle || null]}>{title}</Text>
     </Pressable>
   );
 }

@@ -6,6 +6,7 @@ import MessageScreen from '../screens/MessageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import {Pressable, View} from 'react-native';
 import AddPostScreen from '../screens/AddPostScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -75,6 +76,11 @@ const ProfileStack = () => {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
