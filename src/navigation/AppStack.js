@@ -2,11 +2,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../screens/HomeScreen';
-import MessageScreen from '../screens/MessageScreen';
+import MessagesScreen from '../screens/MessagesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import {Pressable, View} from 'react-native';
 import AddPostScreen from '../screens/AddPostScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
+import ChatsScreen from '../screens/ChatsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,7 +64,12 @@ const MessageStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Message"
-        component={MessageScreen}
+        component={MessagesScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={ChatsScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

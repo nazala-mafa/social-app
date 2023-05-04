@@ -14,20 +14,20 @@ export default function OnboardingScreen({navigation}) {
         {
           backgroundColor: '#f00',
           image: <Image source={onboardingImage1} />,
-          title: 'Onboarding',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          title: 'Connect to the World',
+          subtitle: 'A New Way To Connect With The World',
         },
         {
           backgroundColor: '#0f0',
           image: <Image source={onboardingImage2} />,
-          title: 'Onboarding',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          title: 'Share Your Favorites',
+          subtitle: 'Share Your Thoughts With Similar Kind of People',
         },
         {
           backgroundColor: '#00f',
           image: <Image source={onboardingImage3} />,
-          title: 'Onboarding',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          title: 'Become The Star',
+          subtitle: 'Let The Spot Light Capture You',
         },
       ]}
     />

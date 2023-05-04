@@ -39,7 +39,7 @@ export default function SignupScreen({navigation}) {
       </Pressable>
 
       {Platform.OS == 'android' ? (
-        <View>
+        <View style={{width: '100%'}}>
           <FormButton
             iconType="logo-facebook"
             onPress={() => {}}
