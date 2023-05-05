@@ -18,18 +18,12 @@ import moment from 'moment';
 
 export default function PostCard({item, onDelete, onPress}) {
   const {user} = useContext(AuthContext);
-  const {userData, setUserData} = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [likeText, setLikeText] = useState('');
+  const [liked, setLiked] = useState(false);
 
   likeIcon = item.liked ? 'heart' : 'heart-outline';
   likeIconColor = item.liked ? '#2e64e5' : '#333';
-
-  if (item.likes == 1) {
-    likeText = '1 Like';
-  } else if (item.likes > 1) {
-    likeText = item.likes + ' Likes';
-  } else {
-    likeText = 'Like';
-  }
 
   if (item.comments == 1) {
     commentText = '1 Comment';
@@ -58,8 +52,52 @@ export default function PostCard({item, onDelete, onPress}) {
     getUser();
   }, []);
 
+  useEffect(() => {
+    const unsub = firestore()
+      .collection('posts')
+      .doc(item.id)
+      .collection('likes')
+      .onSnapshot(likesSS => {
+        likesSS.docs.map(like => {
+          setLiked(like.id == user.uid);
+        });
+
+        if (likesSS.docs?.length == 1) {
+          setLikeText('1 Like');
+        } else if (likesSS.docs?.length > 1) {
+          setLikeText(likesSS.docs?.length + ' Likes');
+        } else {
+          setLikeText('Like');
+        }
+      });
+
+    return unsub;
+  }, []);
+
+  const likePost = () => {
+    const likeRef = firestore()
+      .collection('posts')
+      .doc(item.id)
+      .collection('likes')
+      .doc(user.uid);
+
+    likeRef.get().then(data => {
+      console.log(data);
+      if (!data.exists) {
+        likeRef.set({
+          name: userData.fname + ' ' + userData.lname,
+          createdAt: firestore.Timestamp.fromDate(new Date()),
+        });
+        setLiked(true);
+      } else {
+        setLiked(false);
+        likeRef.delete();
+      }
+    });
+  };
+
   return (
-    <Card key={item.uid}>
+    <Card key={item.id}>
       <UserInfo>
         <UserImage
           source={{
@@ -95,9 +133,9 @@ export default function PostCard({item, onDelete, onPress}) {
       )}
 
       <InteractionWrapper>
-        <Interaction onPress={() => {}} active={item.liked}>
+        <Interaction onPress={likePost} active={liked}>
           <IonIcon name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>{likeText}</InteractionText>
+          <InteractionText active={liked}>{likeText}</InteractionText>
         </Interaction>
         <Interaction onPress={() => {}}>
           <IonIcon name="chatbox-ellipses-outline" size={25} color="#333" />
