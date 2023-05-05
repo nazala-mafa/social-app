@@ -8,6 +8,7 @@ import {Pressable, View} from 'react-native';
 import AddPostScreen from '../screens/AddPostScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import ChatsScreen from '../screens/ChatsScreen';
+import CommentsScreen from '../screens/CommentsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -46,6 +47,18 @@ const FeedStack = ({navigation}) => {
       <Stack.Screen
         name="HomeProfile"
         component={ProfileScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#fff',
+            shadowColor: '#fff',
+            elevation: 0,
+          },
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name="Comments"
+        component={CommentsScreen}
         options={{
           headerStyle: {
             backgroundColor: '#fff',

@@ -15,12 +15,14 @@ import {AuthContext} from '../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import {useEffect} from 'react';
 import moment from 'moment';
+import {useNavigation} from '@react-navigation/native';
 
 export default function PostCard({item, onDelete, onPress}) {
   const {user} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [likeText, setLikeText] = useState('');
   const [liked, setLiked] = useState(false);
+  const navigation = useNavigation();
 
   likeIcon = item.liked ? 'heart' : 'heart-outline';
   likeIconColor = item.liked ? '#2e64e5' : '#333';
@@ -96,15 +98,18 @@ export default function PostCard({item, onDelete, onPress}) {
     });
   };
 
+  const commentPost = () => {
+    navigation.navigate('Comments', {post: item});
+  };
+
   return (
     <Card key={item.id}>
       <UserInfo>
         <UserImage
           source={{
-            uri: userData
-              ? userData.userImg ||
-                'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
-              : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+            uri:
+              userData?.userImg ||
+              'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
           }}
         />
         <TouchableOpacity onPress={onPress}>
@@ -127,7 +132,7 @@ export default function PostCard({item, onDelete, onPress}) {
       <PostText>{item.post}</PostText>
 
       {item.postImg != null ? (
-        <PostImage source={require('../../assets/posts/post-img-1.jpg')} />
+        <PostImage source={{uri: item.postImg}} />
       ) : (
         <Text>Divider</Text>
       )}
@@ -137,7 +142,7 @@ export default function PostCard({item, onDelete, onPress}) {
           <IonIcon name={likeIcon} size={25} color={likeIconColor} />
           <InteractionText active={liked}>{likeText}</InteractionText>
         </Interaction>
-        <Interaction onPress={() => {}}>
+        <Interaction onPress={commentPost}>
           <IonIcon name="chatbox-ellipses-outline" size={25} color="#333" />
           <InteractionText>{commentText}</InteractionText>
         </Interaction>
